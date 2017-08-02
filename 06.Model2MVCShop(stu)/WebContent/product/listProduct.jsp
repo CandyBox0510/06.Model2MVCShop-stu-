@@ -190,7 +190,7 @@
 	<tr>
 		<td align="center">
 		
-		<input type="hidden" id="currentPage" name="currentPage" value=""/>
+		<input type="hidden" id="currentPage" name="currentPage" value="0"/>
 			
 			<jsp:include page="../common/pageNavigator.jsp"/>	
     	
