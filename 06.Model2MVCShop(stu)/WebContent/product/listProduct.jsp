@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
 <html>
 <head>
@@ -150,13 +149,13 @@
 				</c:if>
 				<c:if test="${!empty param.menu && param.menu eq 'manage' }">
 					<c:choose>
-						<c:when test="${fn:trim(product.tranStatusCode) eq 1 }">
+						<c:when test="${product.tranStatusCode eq 1 }">
 							구매완료 / <a href="/updateTranCodeByProd.do?prodNo=${product.prodNo}&tranCode=2">배송하기</a>
 						</c:when>
-						<c:when test="${fn:trim(product.tranStatusCode) eq 2 }">
+						<c:when test="${product.tranStatusCode eq 2 }">
 							배송중
 						</c:when>
-						<c:when test="${fn:trim(product.tranStatusCode) eq 3 }">
+						<c:when test="${product.tranStatusCode eq 3 }">
 							배송완료
 						</c:when>
 						<c:otherwise>

@@ -27,19 +27,6 @@ public class ActionServlet extends HttpServlet {
 		mapper=RequestMapping.getInstance(resources);
 										//propertise의 위치를 기준으로 한
 										//mapper가 RequestMapping 인스턴스 참조
-		ApplicationContext context = 
-//				new ClassPathXmlApplicationContext("config/commonservice.xml");
-				new ClassPathXmlApplicationContext
-				(new String[]{"config/context-aspect.xml"
-						 	  ,"config/context-common.xml"
-						 	  ,"config/context-mybatis.xml"
-						 	  ,"config/context-transaction.xml"});
-		
-		ServletContext application = getServletContext();
-		
-		application.setAttribute("userServiceImpl", context.getBean("userServiceImpl"));
-		application.setAttribute("productServiceImpl", context.getBean("productServiceImpl"));
-		application.setAttribute("purchaseServiceImpl", context.getBean("purchaseServiceImpl"));
 	}
 
 	@Override

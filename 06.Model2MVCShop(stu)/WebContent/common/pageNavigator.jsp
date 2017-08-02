@@ -2,23 +2,6 @@
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	
-<%-- 	<% if( resultPage.getCurrentPage() <= resultPage.getPageUnit() ){ %>
-			◀ 
-	<% }else{ %>
-			<a href="javascript:fncGetUserList('<%=resultPage.getCurrentPage()-1%>')">◀ 이전</a>
-	<% } %>
-	
-	<%	for(int i=resultPage.getBeginUnitPage();i<= resultPage.getEndUnitPage() ;i++){	%>
-			<a href="javascript:fncGetUserList('<%=i %>');"><%=i %></a>
-	<% 	}  %>
-	
-	<% if( resultPage.getEndUnitPage() >= resultPage.getMaxPage()){ %>
-			 ▶
-	<% }else{ %>
-			<a href="javascript:fncGetUserList('<%=resultPage.getEndUnitPage()+1%>')">이후 ▶</a>
-	<% } %> --%>
-	
-	
 	<c:if test="${resultPage.currentPage <= resultPage.pageUnit}">
 		◀
 	</c:if>

@@ -3,15 +3,6 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	metadata-complete="true" version="3.0">
-	<context-param>
-		<param-name>pageUnit</param-name>
-		<param-value>4</param-value>
-	</context-param>
-	<context-param>
-		<param-name>pageSize</param-name>
-		<param-value>3</param-value>
-	</context-param>
-
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
