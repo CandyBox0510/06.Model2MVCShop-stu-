@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,19 +55,16 @@ public class PurchaseController {
 
 
 		purchase.setBuyer((User)session.getAttribute("user"));
-		System.out.println("ooooooooooooo1oooooooooooo");
 		Product product = new Product();
 		product.setProdNo(Integer.parseInt(prodNo));
 		purchase.setPurchaseProd(product);
-		System.out.println("ooooooooooooo2oooooooooooo");
 		purchase.setDlvyDate(CommonUtil.toStrDateStr(purchase.getDlvyDate()));
+		System.out.println("addPurchase 전 purchase"+purchase);
 		purchaseService.addPurchase(purchase);
-		System.out.println("ooooooooooooo3oooooooooooo");
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("prodNo", prodNo);
 		map.put("tranCode", "1");
 		productService.updateProductTranCode(map);
-		System.out.println("ooooooooooooo4oooooooooooo");
 		model.addAttribute("purchase", purchase);
 		
 		return "forward:/purchase/addPurchase.jsp";
@@ -91,6 +89,7 @@ public class PurchaseController {
 	@RequestMapping("/getPurchase.do")
 	public String getPurchase(@RequestParam("tranNo")String tranNo,
 								 Model model) throws NumberFormatException, Exception{
+		System.out.println("여기아래다");
 		Purchase purchase = purchaseService.getPurchase(Integer.parseInt(tranNo));
 		
 		System.out.println("겟펄쳐스액션"+purchase);
@@ -113,17 +112,18 @@ public class PurchaseController {
 	@RequestMapping("/updatePurchase.do")
 	public String updatePurchase(@ModelAttribute("purchase")Purchase purchase,
 									@RequestParam("buyerId")String buyerId,
-									@RequestParam("tranNo")String tranNo,
-									Model model) throws Exception{
+									@RequestParam("tranNo")String tranNo
+									) throws Exception{
 		User user = new User();
 		user.setUserId(buyerId);
 		
 		purchase.setBuyer(user);
 		purchase.setDlvyDate(CommonUtil.toDateStr(purchase.getDlvyDate()));
 		
-		purchaseService.updatePurchase(purchase);
 
-		return "forward:/getPurchase.do?tranNo="+tranNo;
+		purchaseService.updatePurchase(purchase);
+		return "forward:/getPurchase.do";
+		
 	}
 	
 	@RequestMapping("/listPurchase.do")

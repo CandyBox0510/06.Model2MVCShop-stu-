@@ -70,7 +70,7 @@
 	 							 
 		VALUES	 (	seq_transaction_tran_no.nextval, #{purchaseProd.prodNo}, #{buyer.userId} ,
 					 #{paymentOption:CHAR}, #{receiverName:VARCHAR}, #{receiverPhone:VARCHAR},
-					 #{dlvyAddr:VARCHAR}, #{dlvyRequest:VARCHAR}, 1, #{orderDate:DATE}, sysdate)
+					 #{dlvyAddr:VARCHAR}, #{dlvyRequest:VARCHAR}, 1, sysdate, #{dlvyDate:DATE} )
 	 </insert>
 	 
 	 <insert 	id="addWish"		parameterType="purchase" >
