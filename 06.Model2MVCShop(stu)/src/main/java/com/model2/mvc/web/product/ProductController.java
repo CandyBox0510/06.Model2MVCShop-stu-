@@ -72,7 +72,6 @@ public class ProductController {
 		}else{
 			cookie = new Cookie("history",history+","+prodNo);
 		}
-		System.out.println("ÄíÅ°ÄíÅ°"+cookie.getValue());
 		
 		cookie.setMaxAge(60*5);
 		response.addCookie(cookie);

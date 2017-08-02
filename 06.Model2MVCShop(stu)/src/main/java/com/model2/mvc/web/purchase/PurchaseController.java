@@ -168,8 +168,27 @@ public class PurchaseController {
 	}
 	
 	@RequestMapping("/listSale.do")
-	public String listSale(){
-		return null;
+	public String listSale(@ModelAttribute("search")Search search,
+							 Model model) throws Exception{
+		
+		if(search.getCurrentPage()==0){
+			search.setCurrentPage(1);
+		}
+		
+		search.setPageUnit(pageUnit);
+		
+		Map<String, Object> map = purchaseService.getSaleList(search);
+		
+		Page resultPage	= 
+				new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(),
+						pageUnit, pageSize);
+		
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("search",search);
+		
+		
+		return "forward:/purchase/listSale.jsp";
 	}
 	
 	@RequestMapping("/updateTranCode.do")
@@ -181,6 +200,7 @@ public class PurchaseController {
 		purchaseService.updateTranCode(map);
 		map.put("prodNo", productService.getProductNo(Integer.parseInt(tranNo)));
 		productService.updateProductTranCode(map);
+		//여기서 펄쳐스데이 넣어야함
 		
 		return "forward:/listPurchase.do";
 	}
@@ -264,7 +284,7 @@ public class PurchaseController {
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("search",search);
 		
-		return "forward:/purchase/wishPurchaseView.jsp";
+		return "forward:/purchase/listWishPurchase.jsp";
 	}
 	
 	@RequestMapping("/cancelWishPurchase.do")
@@ -273,4 +293,5 @@ public class PurchaseController {
 		
 		return "forward:/listWishPurchase.do";
 	}
+	
 }

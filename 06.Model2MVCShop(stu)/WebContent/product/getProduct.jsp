@@ -136,6 +136,8 @@
 					<c:choose>
 						<c:when test="${param.comePath eq 'purchaser' && param.menu eq 'search' }">
 						</c:when>
+						<c:when test="${param.comePath eq 'saleList' && param.menu eq 'search' }">
+						</c:when>
 						<c:when test="${param.comePath eq null && param.menu eq 'search' }">
 							<td width="17" height="23">
 							<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
@@ -164,7 +166,8 @@
 					<%}%> --%>
 					
 					<c:choose>
-						<c:when test="${param.comePath eq null || param.comePath eq 'purchaser'}">
+						<c:when test="${param.comePath eq null || param.comePath eq 'purchaser'
+								     	|| param.comePath eq 'saleList'}">
 							<a href="javascript:history.go(-1)">¿Ã¿¸</a>
 						</c:when>
 						<c:when test="${param.comePath eq 'manage'}">

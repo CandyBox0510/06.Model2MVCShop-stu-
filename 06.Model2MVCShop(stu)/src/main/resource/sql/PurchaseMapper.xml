@@ -18,6 +18,7 @@
 		<result property="tranCode" column="tran_status_code" jdbcType="CHAR"/>
 		<result property="orderDate" column="order_date" jdbcType="DATE"/>
 		<result property="dlvyDate" column="dlvy_date" jdbcType="DATE"/>
+		<result property="purchaseDate" column="purchase_date" jdbcType="DATE"/>
 		
 		<association property="purchaseProd"  javaType="product">
 			<id property="prodNo" column="prod_no" jdbcType="NUMERIC"/>
@@ -149,6 +150,20 @@
 						WHERE ROWNUM &lt;=${search.currentPage*search.pageUnit} )
 	WHERE row_seq BETWEEN ${(search.currentPage-1)*search.pageUnit+1} AND ${search.currentPage*search.pageUnit}
 	</select> 
+	
+	<select  id="getSaleList"  parameterType="search"	resultMap="purchaseSelectMap">
+	SELECT *							
+	FROM	(SELECT 	inner_table.* , ROWNUM AS row_seq				
+		 	 FROM 		(SELECT p.prod_no, p.prod_name, p.price, ts.purchase_date, ts.buyer_id
+						 FROM transaction ts, product p
+								<where>
+									ts.prod_no = p.prod_no AND p.tran_status_code=3
+								</where>
+										) inner_table
+						WHERE ROWNUM &lt;=${currentPage*pageUnit} )
+	WHERE row_seq BETWEEN ${(currentPage-1)*pageUnit+1} AND ${currentPage*pageUnit}
+	</select> 
+	
 	 	<!--  위 두번째 subQuery 의  
 	 			WHERE ROWNUM &lt;= #{endRowNum} ) 는
 	 			WHERE ROWNUM <= #{endRowNum} ) 의미이며..
@@ -174,13 +189,20 @@
 			   FROM wish
 			   WHERE user_id=#{userId}) countTable		
 			   </if>
-			   		
+			   <if test='where=="saleList"'>
+			   SELECT prod_no
+			   FROM product
+			   WHERE tran_status_code=#{tranCode}) countTable		
+			   </if>
 	 </select>
 	 
 	 <update	id="updateTranCode"	parameterType="map" >
 	   	UPDATE transaction
 		<set>
 			tran_status_code = #{tranCode}
+			<if test = "tranCode==3">
+				purchase_date = #{purchaseDate}
+			</if>
 		</set>
 			<if test = "prodNo!=null">
 		 		WHERE prod_no=#{prodNo}

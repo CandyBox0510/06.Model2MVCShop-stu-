@@ -15,6 +15,7 @@ public class Purchase {
 	private String receiverName;
 	private String receiverPhone;
 	private String tranCode;
+	private Date purchaseDate;
 	private int tranNo;
 	
 	public Purchase(){
@@ -86,7 +87,14 @@ public class Purchase {
 	public void setTranNo(int tranNo) {
 		this.tranNo = tranNo;
 	}
-	
+
+	public Date getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	public void setPurchaseDate(Date purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
 
 	@Override
 	public String toString() {
@@ -96,6 +104,6 @@ public class Purchase {
 				+ paymentOption + ", purchaseProd=" + purchaseProd
 				+ ", receiverName=" + receiverName + ", receiverPhone="
 				+ receiverPhone + ", tranCode=" + tranCode + ", tranNo="
-				+ tranNo + "]";
+				+ tranNo +", PurchaseDate=" + purchaseDate + "]";
 	}
 }
