@@ -50,19 +50,16 @@ public class PurchaseController {
 	
 	@RequestMapping("/addPurchase.do")
 	public String addPurchase(@ModelAttribute("purchase")Purchase purchase,
-								HttpSession session, @RequestParam(value="prodNo", defaultValue="")String prodNo,
+								HttpSession session,
 								Model model) throws Exception{
 
 
 		purchase.setBuyer((User)session.getAttribute("user"));
-		Product product = new Product();
-		product.setProdNo(Integer.parseInt(prodNo));
-		purchase.setPurchaseProd(product);
 		purchase.setDlvyDate(CommonUtil.toStrDateStr(purchase.getDlvyDate()));
 		System.out.println("addPurchase 전 purchase"+purchase);
 		purchaseService.addPurchase(purchase);
 		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("prodNo", prodNo);
+		map.put("prodNo", purchase.getPurchaseProd().getProdNo());
 		map.put("tranCode", "1");
 		productService.updateProductTranCode(map);
 		model.addAttribute("purchase", purchase);
@@ -89,7 +86,6 @@ public class PurchaseController {
 	@RequestMapping("/getPurchase.do")
 	public String getPurchase(@RequestParam("tranNo")String tranNo,
 								 Model model) throws NumberFormatException, Exception{
-		System.out.println("여기아래다");
 		Purchase purchase = purchaseService.getPurchase(Integer.parseInt(tranNo));
 		
 		System.out.println("겟펄쳐스액션"+purchase);
@@ -110,17 +106,10 @@ public class PurchaseController {
 	}
 	
 	@RequestMapping("/updatePurchase.do")
-	public String updatePurchase(@ModelAttribute("purchase")Purchase purchase,
-									@RequestParam("buyerId")String buyerId,
-									@RequestParam("tranNo")String tranNo
-									) throws Exception{
-		User user = new User();
-		user.setUserId(buyerId);
+	public String updatePurchase(@ModelAttribute("purchase")Purchase purchase) throws Exception{
 		
-		purchase.setBuyer(user);
 		purchase.setDlvyDate(CommonUtil.toDateStr(purchase.getDlvyDate()));
 		
-
 		purchaseService.updatePurchase(purchase);
 		return "forward:/getPurchase.do";
 		
@@ -229,19 +218,17 @@ public class PurchaseController {
 	}
 	
 	@RequestMapping("/addWishPurchase.do")
-	public String addWishPurchase(@RequestParam("prodNo")String prodNo,
+	public String addWishPurchase(@ModelAttribute("purchase")Purchase purchase,
+									  @RequestParam("prodNo")String prodNo,
 									  HttpSession session,
 									  Model model) throws Exception{
-		Purchase purchase = new Purchase();
-//		Product product = 
-//				new ProductServiceImpl().getProduct(Integer.parseInt(request.getParameter("prodNo")));
+		
 		Product product = new Product();
 		product.setProdNo(Integer.parseInt(prodNo));
 		
 		purchase.setPurchaseProd(product);
 		purchase.setBuyer((User)(session.getAttribute("user"))); 
 		
-//		PurchaseService service = new PurchaseServiceImp();
 		purchaseService.addWishPurchase(purchase);
 		
 		model.addAttribute("wishSuccess", "success");

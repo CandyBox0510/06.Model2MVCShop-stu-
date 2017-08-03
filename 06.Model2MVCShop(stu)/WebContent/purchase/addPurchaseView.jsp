@@ -53,7 +53,7 @@ function fncAddPurchase() {
 	</tr>
 </table>
 
-<input type="hidden" name="prodNo" value="${param.prodNo }" />
+<input type="hidden" name="purchase.prodNo" value="${param.prodNo }" />
 
 <table width="600" border="0" cellspacing="0" cellpadding="0"	align="center" style="margin-top: 13px;">
 	<tr>

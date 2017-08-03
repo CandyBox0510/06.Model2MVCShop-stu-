@@ -47,7 +47,7 @@
 		<%-- <td class="ct_write01"><%=buyer.getUserId() %></td> --%>
 		<td class="ct_write01">${purchase.buyer.userId }</td>
 		<%-- <input type="hidden" name="buyerId" value=<%=buyer.getUserId()%>> --%>
-		<input type="hidden" name="buyerId" value=${purchase.buyer.userId }>
+		<input type="hidden" name="search.buyerId" value=${purchase.buyer.userId }>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
