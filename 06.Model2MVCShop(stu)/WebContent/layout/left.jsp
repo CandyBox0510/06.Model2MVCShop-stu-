@@ -16,7 +16,7 @@
 
 <html>
 <head>
-<title>Model2 MVC Shop left</title>
+<title>Model2 MVC Shop left ok</title>
 
 <link href="/css/left.css" rel="stylesheet" type="text/css">
 
