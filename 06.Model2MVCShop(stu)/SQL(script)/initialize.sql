@@ -50,7 +50,8 @@ CREATE TABLE transaction (
 	dlvy_request 			VARCHAR2(100),
 	tran_status_code	CHAR(3),
 	order_date 			DATE,
-	dlvy_date 				DATE,
+	dlvy_date 			DATE,
+	purchase_date		DATE,
 	PRIMARY KEY(tran_no)
 );
 

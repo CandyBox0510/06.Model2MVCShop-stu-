@@ -44,7 +44,7 @@ public class PurchaseDaoImpl implements PurchaseDao{
 	}
 	
 	public List<Purchase> getSaleList(Search search){
-		return null;
+		return sqlSession.selectList("PurchaseMapper.getSaleList", search);
 	}
 	
 	public void insertPurchase(Purchase purchase) throws Exception{

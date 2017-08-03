@@ -144,8 +144,19 @@
 		<td align="left">${product.regDate }</td>
 		<td></td>
 		<td align="left"> 
-				<c:if test="${!empty param.menu && param.menu eq 'search'}">			
-				${product.tranStatusCode ne null ? "재고없음" : "판매중"}
+				<c:if test="${!empty param.menu && param.menu eq 'search'}">		
+					<c:choose>
+						<c:when test="${product.tranStatusCode eq null }">
+							판매중
+						</c:when>
+						<c:when test="${product.tranStatusCode <= 2 && product.tranStatusCode>=1 }">
+							재고없음
+						</c:when>
+						<c:when test="${!empty product.tranStatusCode && product.tranStatusCode eq 3 }">
+							판매완료
+						</c:when>
+					</c:choose>
+					<c:if test="${product.tranStatusCode ne null ? '재고없음' : '판매중'}"></c:if>				
 				</c:if>
 				<c:if test="${!empty param.menu && param.menu eq 'manage' }">
 					<c:choose>
@@ -190,7 +201,7 @@
 	<tr>
 		<td align="center">
 		
-		<input type="hidden" id="currentPage" name="currentPage" value=""/>
+		<input type="hidden" id="currentPage" name="currentPage" value="0"/>
 			
 			<jsp:include page="../common/pageNavigator.jsp"/>	
     	

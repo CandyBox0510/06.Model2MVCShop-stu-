@@ -60,7 +60,7 @@ public class ProductController {
 	
 	@RequestMapping("/getProduct.do")
 	public ModelAndView getProduct(@RequestParam("prodNo") String prodNo,
-									  @RequestParam("menu") String menu,
+									  @RequestParam(value="menu",defaultValue="") String menu,
 									  HttpServletRequest request, 
 									  HttpServletResponse response,
 									  @CookieValue(value="history",defaultValue="") String history)
@@ -72,7 +72,6 @@ public class ProductController {
 		}else{
 			cookie = new Cookie("history",history+","+prodNo);
 		}
-		System.out.println("ÄíÅ°ÄíÅ°"+cookie.getValue());
 		
 		cookie.setMaxAge(60*5);
 		response.addCookie(cookie);
@@ -85,7 +84,7 @@ public class ProductController {
 		modelAndView.addObject("product",product);
 		
 		
-		if(menu!=null){
+		if(menu!=""){
 			if(menu.equals("manage")){
 				modelAndView.setViewName("forward:/updateProductView.do");
 				return modelAndView;		

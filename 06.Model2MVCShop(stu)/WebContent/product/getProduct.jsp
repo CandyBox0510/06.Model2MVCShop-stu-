@@ -136,12 +136,14 @@
 					<c:choose>
 						<c:when test="${param.comePath eq 'purchaser' && param.menu eq 'search' }">
 						</c:when>
+						<c:when test="${param.comePath eq 'saleList' && param.menu eq 'search' }">
+						</c:when>
 						<c:when test="${param.comePath eq null && param.menu eq 'search' }">
 							<td width="17" height="23">
 							<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 							</td>
 							<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-							<a href="/addPurchaseView.do?prod_no=${product.prodNo }">구매</a>
+							<a href="/addPurchaseView.do?prodNo=${product.prodNo }">구매</a>
 							</td>				
 							<td width="14" height="23">
 							<img src="/images/ct_btnbg03.gif" width="14" height="23">
@@ -164,7 +166,8 @@
 					<%}%> --%>
 					
 					<c:choose>
-						<c:when test="${param.comePath eq null || param.comePath eq 'purchaser'}">
+						<c:when test="${param.comePath eq null || param.comePath eq 'purchaser'
+								     	|| param.comePath eq 'saleList'}">
 							<a href="javascript:history.go(-1)">이전</a>
 						</c:when>
 						<c:when test="${param.comePath eq 'manage'}">
